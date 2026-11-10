@@ -259,6 +259,10 @@
   label.selected .check-indicator { border-color: var(--vert); background: var(--vert); }
   label.selected .check-indicator::after { content: '✓'; color: white; font-size: .7rem; line-height: 1; }
 
+  /* CHAMPS TEXTE CONDITIONNELS */
+  [hidden] { display: none !important; }
+  .sub-field { margin: 10px 0 0; }
+
   /* BUDGET RANGE */
   .range-track { position: relative; margin-top: 6px; }
   input[type=range] {
@@ -349,8 +353,7 @@
 
 <div class="header">
   <img src="https://raw.githubusercontent.com/safa-omra/omra-familiale/main/logo%20safa.png" alt="SAFA OMRA" class="header-logo">
-  <div class="header-badge">Omra Familiale</div>
-  <h1><br><em>Ramadan 2027</em></h1>
+  <h1>Omra Familiale<br><em>Ramadan 2027</em></h1>
  
 </div>
 
@@ -487,6 +490,21 @@
         <label id="lbl-dp"><input type="checkbox" name="prest_demi_pension" value="1"><span class="check-indicator"></span>Demi-pension (petit-déjeuner + dîner)</label>
         <label id="lbl-train"><input type="checkbox" name="prest_train" value="1"><span class="check-indicator"></span>Train Médine ↔ La Mecque (1h30)</label>
         <label id="lbl-ihram"><input type="checkbox" name="prest_ihram" value="1"><span class="check-indicator"></span>Kit Ihram inclus</label>
+        <label id="lbl-autre"><input type="checkbox" name="prest_autre" value="1"><span class="check-indicator"></span>Autre</label>
+      </div>
+      <div class="field sub-field" id="f-prest-autre" hidden>
+        <input type="text" id="prest-autre-txt" name="prest_autre_txt" placeholder="Précisez la prestation souhaitée…" maxlength="200">
+      </div>
+    </div>
+
+    <div class="field" id="f-passeport">
+      <label>Passeport</label>
+      <div class="radio-group">
+        <label><input type="radio" name="passeport" value="Européen"><span class="radio-indicator"></span>Européen</label>
+        <label><input type="radio" name="passeport" value="Autre"><span class="radio-indicator"></span>Autre</label>
+      </div>
+      <div class="field sub-field" id="f-passeport-autre" hidden>
+        <input type="text" id="passeport-autre-txt" name="passeport_autre_txt" placeholder="Précisez la nationalité du passeport…" maxlength="100">
       </div>
     </div>
 
@@ -544,19 +562,26 @@
   });
 
   /* ── Radio / checkbox toggle ── */
-  document.querySelectorAll('.radio-group, .check-group').forEach(group => {
-    group.querySelectorAll('label').forEach(lbl => {
-      lbl.addEventListener('click', () => {
-        const inp = lbl.querySelector('input');
-        if (inp.type === 'radio') {
-          group.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
-          lbl.classList.add('selected');
-        } else {
-          lbl.classList.toggle('selected');
-        }
-      });
+  /* On écoute "change" (et non "click") : le clic sur un label déclenche
+     aussi un clic sur l'input, ce qui doublait le basculement des cases. */
+  function syncGroup(group) {
+    group.querySelectorAll('label').forEach(l => {
+      const inp = l.querySelector('input');
+      l.classList.toggle('selected', !!(inp && inp.checked));
     });
+  }
+  document.querySelectorAll('.radio-group, .check-group').forEach(group => {
+    group.addEventListener('change', () => { syncGroup(group); syncConditionnels(); });
   });
+
+  /* ── Champs texte conditionnels (Autre prestation / Passeport autre) ── */
+  function syncConditionnels() {
+    const autrePrest = document.querySelector('input[name="prest_autre"]').checked;
+    document.getElementById('f-prest-autre').hidden = !autrePrest;
+
+    const pass = document.querySelector('input[name="passeport"]:checked');
+    document.getElementById('f-passeport-autre').hidden = !(pass && pass.value === 'Autre');
+  }
 
   /* ── Range ── */
   const range    = document.getElementById('budget');
@@ -630,7 +655,16 @@
       prest_demi_pension: document.querySelector('input[name="prest_demi_pension"]')?.checked ? 'Oui' : 'Non',
       prest_train:        document.querySelector('input[name="prest_train"]')?.checked ? 'Oui' : 'Non',
       prest_ihram:        document.querySelector('input[name="prest_ihram"]')?.checked ? 'Oui' : 'Non',
-      message:          document.getElementById('message').value.trim()
+      prest_autre:        document.querySelector('input[name="prest_autre"]')?.checked
+                            ? (document.getElementById('prest-autre-txt').value.trim() || 'Oui')
+                            : 'Non',
+      passeport:          (() => {
+                            const p = document.querySelector('input[name="passeport"]:checked')?.value || '';
+                            if (p !== 'Autre') return p;
+                            const t = document.getElementById('passeport-autre-txt').value.trim();
+                            return t ? 'Autre : ' + t : 'Autre';
+                          })(),
+      message:         document.getElementById('message').value.trim()
     };
 
     const btn = document.getElementById('submitBtn');
