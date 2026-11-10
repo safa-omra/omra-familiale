@@ -372,7 +372,7 @@
 
 <div class="wrapper">
 
-  <div class="intro">
+  <div class="intro" id="intro">
     <strong>SAFA OMRA</strong> vous propose un séjour Omra en famille, pendant le mois de Ramadan. Répondez à ce sondage en 2 minutes pour nous aider à adapter l'offre à vos besoins.
   </div>
 
@@ -538,10 +538,10 @@
 
   <div id="success">
     <div class="icon"></div>
-    <h2>Merci pour votre intérêt !</h2>
-    <p>Nous vous recontacterons très prochainement.<em>Qu' Allah facilite votre Omra.</em></p>
+    
+    <p>Nous vous recontacterons très prochainement.<br><em>Qu'Allah facilite votre Omra.</em></p>
     <a class="btn-wa" href="https://chat.whatsapp.com/KM2KRLXbEmv8Zr2ryxBTtS" target="_blank" rel="noopener">Rejoindre le groupe WhatsApp</a>
-    <span class="btn-note">Restez informé(e) de nos offres Omra en rejoignant le groupe.</span>
+   
   </div>
 
   <div class="footer">
@@ -695,6 +695,7 @@
       });
       // no-cors = pas de réponse lisible, on considère OK si pas d'exception
       document.getElementById('sondage').style.display = 'none';
+      document.getElementById('intro').style.display = 'none';
       document.getElementById('success').style.display = 'block';
       window.scrollTo({top: 0, behavior:'smooth'});
     } catch(err) {
