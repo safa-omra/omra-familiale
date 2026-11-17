@@ -371,7 +371,14 @@
   .field .err-msg { display: none; font-size: .78rem; color: #c0392b; margin-top: 5px; }
   .field.error .err-msg { display: block; }
 </style>
-<script type='text/javascript' nonce='SDmT8/3DexI6dFyiVfloBg==' src='https://7b198c7c-f552-4c9b-86d5-865ef8ade25d.frame.claudeusercontent.com/gmWFdE7aCO-PK-bTjeccAgfSeIsgoO8hQ_of-IJzqiiv_X8svPWUN9vJvsvgmWLn-ksBk_LFoAVgEy34cF5SUUn3V0LSED5zO0NM8Vlr9gzzpXKifnNykZoKpqPyZ5LV7b3Jpp-apKydUQnf2RHWQWOchgNZS-9paO3Lv_3PmeDGeMParxbUjPZ-hC3WBVBAH6BhYQ_jyl95QqvqD7vz6ehE5O7H3fAq7BWNwyj3y9GKJ5XJyab5psFXVWA8ImTVY0Rxj4R_xLveR85Ve7WTJZ8azD9NXmV2FugtuEMno17ldZ_dzPJUGGOEO2O24ANrVJpn_Un993bNxKYiIfIiDZv4A7p86L1Ey2lXL1Jy-ix2RyFplKeZauX1rftSZXHwUi9Q47TMq_tN980y8BcsD860ASi6i2yzrnR64MRv21lgTTa8lYG9HT7qpCyn2SNBG29mRek_MapUe8WarrfQwtSOsB9yb3-uEO3V8yBe9EGAJ0u5Upu1NzLyguIWBrzEmswk0QEbnAEwnwMJgQTBr0wR_RkRApwxgmTsqV8Ni9R3J_WXTLl7qAnLNWY5GaM_Dxl3_rHg-StdOzYClv_VyiPAg6YIuKrCGknEm2ZfXXl1QGcyRCx8gVI0hFtKKj6xEgEiti1xud6ou7qYYzVKeMBtG3i8BxhQjtbu4upd6Q8Sr1xa9NIWNF0ij-2TB2UMCvaGYg1V36q1LFTD9A0Prg'></script></head>
+<script type='text/javascript' nonce='SDmT8/3DexI6dFyiVfloBg==' src='https://7b198c7c-f552-4c9b-86d5-865ef8ade25d.frame.claudeusercontent.com/gmWFdE7aCO-PK-bTjeccAgfSeIsgoO8hQ_of-IJzqiiv_X8svPWUN9vJvsvgmWLn-ksBk_LFoAVgEy34cF5SUUn3V0LSED5zO0NM8Vlr9gzzpXKifnNykZoKpqPyZ5LV7b3Jpp-apKydUQnf2RHWQWOchgNZS-9paO3Lv_3PmeDGeMParxbUjPZ-hC3WBVBAH6BhYQ_jyl95QqvqD7vz6ehE5O7H3fAq7BWNwyj3y9GKJ5XJyab5psFXVWA8ImTVY0Rxj4R_xLveR85Ve7WTJZ8azD9NXmV2FugtuEMno17ldZ_dzPJUGGOEO2O24ANrVJpn_Un993bNxKYiIfIiDZv4A7p86L1Ey2lXL1Jy-ix2RyFplKeZauX1rftSZXHwUi9Q47TMq_tN980y8BcsD860ASi6i2yzrnR64MRv21lgTTa8lYG9HT7qpCyn2SNBG29mRek_MapUe8WarrfQwtSOsB9yb3-uEO3V8yBe9EGAJ0u5Upu1NzLyguIWBrzEmswk0QEbnAEwnwMJgQTBr0wR_RkRApwxgmTsqV8Ni9R3J_WXTLl7qAnLNWY5GaM_Dxl3_rHg-StdOzYClv_VyiPAg6YIuKrCGknEm2ZfXXl1QGcyRCx8gVI0hFtKKj6xEgEiti1xud6ou7qYYzVKeMBtG3i8BxhQjtbu4upd6Q8Sr1xa9NIWNF0ij-2TB2UMCvaGYg1V36q1LFTD9A0Prg'>
+  /* ── Logo dans le succès ── */
+  (function() {
+    const hLogo = document.querySelector('.header-logo');
+    const sLogo = document.getElementById('success-logo');
+    if (hLogo && sLogo) sLogo.src = hLogo.src;
+  })();
+</script></head>
 <body>
 
 <div class="header">
@@ -472,43 +479,14 @@
         
         <div class="periode-text">
           <strong>Ramadan 2027</strong><br>
-          Départ entre le <strong>8 février 2027</strong> et le <strong>9 mars 2027</strong>
+          Départ du <strong>9 </strong> au <strong>21 février 2027</strong>
         </div>
       </div>
       <input type="hidden" name="periode" value="ramadan_fev_2027">
     </div>
-
-    <div class="field" id="f-duree">
-      <label>Durée souhaitée du séjour <span class="req">*</span></label>
-      <div class="radio-group">
-        <label><input type="radio" name="duree" value="7 nuits"><span class="radio-indicator"></span>7 nuits</label>
-        <label><input type="radio" name="duree" value="10 nuits"><span class="radio-indicator"></span>10 nuits</label>
-        <label><input type="radio" name="duree" value="Autre"><span class="radio-indicator"></span>Autre durée</label>
-      </div>
-      <span class="err-msg">Veuillez sélectionner une durée.</span>
+    <span class="err-msg">Veuillez sélectionner une durée.</span>
     </div>
-
-    <!-- BUDGET -->
-    <div class="section-title"><span class="dot"></span> Budget</div>
-
-    <div class="field">
-      <label>Budget par personne (hors enfants en bas âge)</label>
-      <div class="range-track">
-        <input type="range" id="budget" name="budget" min="1700" max="3000" step="50" value="2200">
-      </div>
-      <div class="range-labels"><span>1 500 €</span><span>3 000 €</span></div>
-      <div class="range-value" id="budgetVal">1 900 €</div>
-    </div>
-
-    <div class="field" id="f-confort">
-      <label>Niveau d'hébergement souhaité <span class="req">*</span></label>
-      <div class="radio-group">
-        <label><input type="radio" name="confort" value="Économique 3★"><span class="radio-indicator"></span>Économique — 3 ★, fonctionnel</label>
-        <label><input type="radio" name="confort" value="Standard 4★"><span class="radio-indicator"></span>Standard — 4 ★, confortable</label>
-        <label><input type="radio" name="confort" value="Premium 5★"><span class="radio-indicator"></span>Premium — 5 ★, proche Haram</label>
-        <label><input type="radio" name="confort" value="Flexible"><span class="radio-indicator"></span>Flexible selon le prix</label>
-      </div>
-      <span class="err-msg">Veuillez sélectionner une option.</span>
+    <span class="err-msg">Veuillez sélectionner une option.</span>
     </div>
 
     <!-- PRESTATIONS -->
@@ -517,7 +495,6 @@
     <div class="field">
       <label>Ce que vous souhaitez inclure dans le séjour</label>
       <div class="check-group">
-        <label id="lbl-dp"><input type="checkbox" name="prest_demi_pension" value="1"><span class="check-indicator"></span>Demi-pension (petit-déjeuner + dîner)</label>
         <label id="lbl-train"><input type="checkbox" name="prest_train" value="1"><span class="check-indicator"></span>Train Médine ↔ La Mecque (1h30)</label>
         <label id="lbl-ihram"><input type="checkbox" name="prest_ihram" value="1"><span class="check-indicator"></span>Kit Ihram inclus</label>
         <label id="lbl-autre"><input type="checkbox" name="prest_autre" value="1"><span class="check-indicator"></span>Autre</label>
@@ -557,6 +534,7 @@
     <div class="icon"></div>
     <h2>Merci pour votre intérêt !</h2>
     <p>Nous vous recontacterons très prochainement.<br><em>Qu'Allah facilite votre Omra.</em></p>
+    <img id="success-logo" alt="SAFA OMRA" style="height:80px;display:block;margin:0 auto 18px;background:#fff;border-radius:12px;padding:6px 12px;box-shadow:0 2px 12px rgba(0,0,0,.12);">
     <a class="btn-wa" href="https://chat.whatsapp.com/KM2KRLXbEmv8Zr2ryxBTtS" target="_blank" rel="noopener">Rejoindre le groupe WhatsApp</a>
     <span class="btn-note">Restez informé(e) de nos offres Omra en rejoignant le groupe.</span>
   </div>
@@ -620,19 +598,6 @@
     const pass = document.querySelector('input[name="passeport"]:checked');
     document.getElementById('f-passeport-autre').hidden = !(pass && pass.value === 'Autre');
   }
-
-  /* ── Range ── */
-  const range    = document.getElementById('budget');
-  const rangeVal = document.getElementById('budgetVal');
-  function updateRange() {
-    const min = +range.min, max = +range.max, val = +range.value;
-    const pct = ((val - min) / (max - min) * 100).toFixed(1);
-    range.style.setProperty('--pct', pct + '%');
-    rangeVal.textContent = val.toLocaleString('fr-FR') + ' €';
-  }
-  range.addEventListener('input', updateRange);
-  updateRange();
-
   /* ── Validation ── */
   function req(id, fn) {
     const wrap = document.getElementById('f-' + id);
@@ -662,9 +627,6 @@
     ok = req('ville') && ok;
     ok = req('adultes', el => el.value !== '') && ok;
     ok = req('enfants', () => document.getElementById('nb-enfants').value !== '') && ok;
-    ok = reqRadio('duree', 'duree') && ok;
-    ok = reqRadio('confort', 'confort') && ok;
-
     if (!ok) {
       document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
       return;
@@ -688,10 +650,6 @@
       nb_enfants:       document.getElementById('nb-enfants').value,
       ages_enfants:     ages.join(' | '),
       nb_moins_2_ans:   nbEnfants > 0 ? document.getElementById('nb-moins2').value : '0',
-      duree:            document.querySelector('input[name="duree"]:checked')?.value || '',
-      budget:           document.getElementById('budget').value + ' €',
-      confort:          document.querySelector('input[name="confort"]:checked')?.value || '',
-      prest_demi_pension: document.querySelector('input[name="prest_demi_pension"]')?.checked ? 'Oui' : 'Non',
       prest_train:        document.querySelector('input[name="prest_train"]')?.checked ? 'Oui' : 'Non',
       prest_ihram:        document.querySelector('input[name="prest_ihram"]')?.checked ? 'Oui' : 'Non',
       prest_autre:        document.querySelector('input[name="prest_autre"]')?.checked
