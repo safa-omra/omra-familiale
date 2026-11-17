@@ -372,11 +372,11 @@
   .field.error .err-msg { display: block; }
 </style>
 <script type='text/javascript' nonce='SDmT8/3DexI6dFyiVfloBg==' src='https://7b198c7c-f552-4c9b-86d5-865ef8ade25d.frame.claudeusercontent.com/gmWFdE7aCO-PK-bTjeccAgfSeIsgoO8hQ_of-IJzqiiv_X8svPWUN9vJvsvgmWLn-ksBk_LFoAVgEy34cF5SUUn3V0LSED5zO0NM8Vlr9gzzpXKifnNykZoKpqPyZ5LV7b3Jpp-apKydUQnf2RHWQWOchgNZS-9paO3Lv_3PmeDGeMParxbUjPZ-hC3WBVBAH6BhYQ_jyl95QqvqD7vz6ehE5O7H3fAq7BWNwyj3y9GKJ5XJyab5psFXVWA8ImTVY0Rxj4R_xLveR85Ve7WTJZ8azD9NXmV2FugtuEMno17ldZ_dzPJUGGOEO2O24ANrVJpn_Un993bNxKYiIfIiDZv4A7p86L1Ey2lXL1Jy-ix2RyFplKeZauX1rftSZXHwUi9Q47TMq_tN980y8BcsD860ASi6i2yzrnR64MRv21lgTTa8lYG9HT7qpCyn2SNBG29mRek_MapUe8WarrfQwtSOsB9yb3-uEO3V8yBe9EGAJ0u5Upu1NzLyguIWBrzEmswk0QEbnAEwnwMJgQTBr0wR_RkRApwxgmTsqV8Ni9R3J_WXTLl7qAnLNWY5GaM_Dxl3_rHg-StdOzYClv_VyiPAg6YIuKrCGknEm2ZfXXl1QGcyRCx8gVI0hFtKKj6xEgEiti1xud6ou7qYYzVKeMBtG3i8BxhQjtbu4upd6Q8Sr1xa9NIWNF0ij-2TB2UMCvaGYg1V36q1LFTD9A0Prg'>
-  /* ── Logo dans le succès ── */
+  /* ── Logo succès ── */
   (function() {
-    const hLogo = document.querySelector('.header-logo');
-    const sLogo = document.getElementById('success-logo');
-    if (hLogo && sLogo) sLogo.src = hLogo.src;
+    const h = document.querySelector('.header-logo');
+    const s = document.getElementById('success-logo');
+    if (h && s) s.src = h.src;
   })();
 </script></head>
 <body>
@@ -479,15 +479,14 @@
         
         <div class="periode-text">
           <strong>Ramadan 2027</strong><br>
-          Départ du <strong>9 </strong> au <strong>21 février 2027</strong>
+          Du <strong>8 février </strong> au <strong>21 février 2027</strong>
         </div>
       </div>
       <input type="hidden" name="periode" value="ramadan_fev_2027">
     </div>
-    <span class="err-msg">Veuillez sélectionner une durée.</span>
-    </div>
-    <span class="err-msg">Veuillez sélectionner une option.</span>
-    </div>
+
+
+
 
     <!-- PRESTATIONS -->
     <div class="section-title"><span class="dot"></span> Prestations souhaitées</div>
@@ -534,7 +533,7 @@
     <div class="icon"></div>
     <h2>Merci pour votre intérêt !</h2>
     <p>Nous vous recontacterons très prochainement.<br><em>Qu'Allah facilite votre Omra.</em></p>
-    <img id="success-logo" alt="SAFA OMRA" style="height:80px;display:block;margin:0 auto 18px;background:#fff;border-radius:12px;padding:6px 12px;box-shadow:0 2px 12px rgba(0,0,0,.12);">
+    <img id="success-logo" alt="SAFA OMRA" style="height:72px;display:block;margin:0 auto 20px;background:#fff;border-radius:12px;padding:6px 14px;box-shadow:0 2px 14px rgba(0,0,0,.13);">
     <a class="btn-wa" href="https://chat.whatsapp.com/KM2KRLXbEmv8Zr2ryxBTtS" target="_blank" rel="noopener">Rejoindre le groupe WhatsApp</a>
     <span class="btn-note">Restez informé(e) de nos offres Omra en rejoignant le groupe.</span>
   </div>
@@ -598,6 +597,8 @@
     const pass = document.querySelector('input[name="passeport"]:checked');
     document.getElementById('f-passeport-autre').hidden = !(pass && pass.value === 'Autre');
   }
+
+
   /* ── Validation ── */
   function req(id, fn) {
     const wrap = document.getElementById('f-' + id);
@@ -627,6 +628,7 @@
     ok = req('ville') && ok;
     ok = req('adultes', el => el.value !== '') && ok;
     ok = req('enfants', () => document.getElementById('nb-enfants').value !== '') && ok;
+
     if (!ok) {
       document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
       return;
