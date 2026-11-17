@@ -616,54 +616,71 @@
     return !!checked;
   }
 
+  
   /* ── Submit ── */
   document.getElementById('sondage').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     let ok = true;
+
     ok = req('nom') && ok;
     ok = req('prenom') && ok;
-    ok = req('tel', el => el.value.replace(/\s/g,'').length >= 8) && ok;
+    ok = req('tel', el => el.value.replace(/\s/g, '').length >= 8) && ok;
     ok = req('email', el => el.value === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) && ok;
     ok = req('ville') && ok;
     ok = req('adultes', el => el.value !== '') && ok;
     ok = req('enfants', () => document.getElementById('nb-enfants').value !== '') && ok;
 
     if (!ok) {
-      document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+      document.querySelector('.field.error')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
       return;
     }
 
-    /* Collecter les âges enfants */
+    /* Collecter les âges des enfants */
     const nbEnfants = parseInt(document.getElementById('nb-enfants').value) || 0;
     const ages = [];
+
     for (let i = 1; i <= nbEnfants; i++) {
       const sel = document.querySelector(`select[name="age_enfant_${i}"]`);
-      if (sel && sel.value) ages.push(`Enfant ${i} : ${sel.value}`);
+      if (sel && sel.value) {
+        ages.push(`Enfant ${i} : ${sel.value}`);
+      }
     }
 
+    /* Préparer les données */
     const payload = {
-      nom:              document.getElementById('nom').value.trim(),
-      prenom:           document.getElementById('prenom').value.trim(),
-      tel:              document.getElementById('tel').value.trim(),
-      email:            document.getElementById('email').value.trim(),
-      ville:            document.getElementById('ville').value.trim(),
-      adultes:          document.getElementById('adultes').value,
-      nb_enfants:       document.getElementById('nb-enfants').value,
-      ages_enfants:     ages.join(' | '),
-      nb_moins_2_ans:   nbEnfants > 0 ? document.getElementById('nb-moins2').value : '0',
-      prest_train:        document.querySelector('input[name="prest_train"]')?.checked ? 'Oui' : 'Non',
-      prest_ihram:        document.querySelector('input[name="prest_ihram"]')?.checked ? 'Oui' : 'Non',
-      prest_autre:        document.querySelector('input[name="prest_autre"]')?.checked
-                            ? (document.getElementById('prest-autre-txt').value.trim() || 'Oui')
-                            : 'Non',
-      passeport:          (() => {
-                            const p = document.querySelector('input[name="passeport"]:checked')?.value || '';
-                            if (p !== 'Autre') return p;
-                            const t = document.getElementById('passeport-autre-txt').value.trim();
-                            return t ? 'Autre : ' + t : 'Autre';
-                          })(),
-      message:         document.getElementById('message').value.trim()
+      nom: document.getElementById('nom').value.trim(),
+      prenom: document.getElementById('prenom').value.trim(),
+      tel: document.getElementById('tel').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      ville: document.getElementById('ville').value.trim(),
+      adultes: document.getElementById('adultes').value,
+      nb_enfants: document.getElementById('nb-enfants').value,
+      ages_enfants: ages.join(' | '),
+      nb_moins_2_ans: nbEnfants > 0
+        ? document.getElementById('nb-moins2').value
+        : '0',
+
+      prest_train: document.querySelector('input[name="prest_train"]')?.checked ? 'Oui' : 'Non',
+      prest_ihram: document.querySelector('input[name="prest_ihram"]')?.checked ? 'Oui' : 'Non',
+
+      prest_autre: document.querySelector('input[name="prest_autre"]')?.checked
+        ? (document.getElementById('prest-autre-txt').value.trim() || 'Oui')
+        : 'Non',
+
+      passeport: (() => {
+        const p = document.querySelector('input[name="passeport"]:checked')?.value || '';
+
+        if (p !== 'Autre') return p;
+
+        const t = document.getElementById('passeport-autre-txt').value.trim();
+        return t ? 'Autre : ' + t : 'Autre';
+      })(),
+
+      message: document.getElementById('message').value.trim()
     };
 
     const btn = document.getElementById('submitBtn');
@@ -671,18 +688,36 @@
     btn.textContent = 'Envoi en cours…';
 
     try {
-      await new Promise(r => setTimeout(r, 600)); console.log('APERCU', payload);
-      // no-cors = pas de réponse lisible, on considère OK si pas d'exception
+      /* Envoyer les données à Google Apps Script */
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      /* Afficher la confirmation */
       document.getElementById('sondage').style.display = 'none';
       document.getElementById('intro').style.display = 'none';
       document.getElementById('success').style.display = 'block';
-      window.scrollTo({top: 0, behavior:'smooth'});
-    } catch(err) {
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+    } catch (err) {
+      console.error('Erreur lors de l’envoi :', err);
+
       btn.disabled = false;
       btn.textContent = 'Envoyer ma demande';
-      alert('Une erreur est survenue. Vérifiez votre connexion et réessayez.');
+
+      alert('Une erreur est survenue lors de l’envoi. Vérifiez votre connexion et réessayez.');
     }
   });
+
 </script>
 </body>
 </html>
